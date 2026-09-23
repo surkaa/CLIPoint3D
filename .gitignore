@@ -1,0 +1,25 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local environments and cluster helpers
+.venv/
+venv/
+cp3d.sh
+requirements.txt
+requirements_core.txt
+
+# Downloaded model weights and training outputs
+clip_weights/
+experiments/
+
+# Local dataset links
+PointDA_data/modelnet
+PointDA_data/scannet
+PointDA_data/shapenet
+GraspNetPointClouds/collision_label
+GraspNetPointClouds/grasp_label
+GraspNetPointClouds/scenes
+
+# Local dependency checkout backup
+Dassl.pytorch.bak/
