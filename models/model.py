@@ -216,9 +216,9 @@ class Model(nn.Module):
         self.channel = 512
         self.load_descriptions(clip_model, cfg)
 
-        self.image_cross_attention = CrossAttention(latent_dim = 768, kv_dim = 768, cross_heads = 8)
+        self.image_cross_attention = CrossAttention(latent_dim = 768, kv_dim = 512, cross_heads = 8)
 
-        self.pc_mlp_2 = nn.Linear(512, 768)
+        self.pc_mlp_2 = nn.Linear(768, 768)
         self.image_prompt_learner = ImagePrompt()
 
 
@@ -350,8 +350,8 @@ class Model(nn.Module):
         point_features = self.pc_mlp(point_features)
 
         # Get image prompt conditioned on point cloud
-        image_prompt = self.image_prompt_mlp(self.prompt_learner.ctx)
-        pc_condtioned_image_prompt = self.pc_mlp_2(self.cross_attention(data = point_features.unsqueeze(1), soft_prompt = image_prompt.unsqueeze(0).repeat(B, 1, 1)))
+        image_prompt = self.image_prompt_learner()
+        pc_condtioned_image_prompt = self.pc_mlp_2(self.image_cross_attention(data = point_features.unsqueeze(1), soft_prompt = image_prompt.unsqueeze(0).repeat(B, 1, 1)))
         
         # Generate images from point clouds
         with torch.no_grad():
