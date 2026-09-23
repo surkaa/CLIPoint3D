@@ -267,7 +267,7 @@ class LayerNormOnlyTrainer(TrainerXU):
 
         for batch_idx, batch in enumerate(tqdm(data_loader)):
             point_cloud, label = self.parse_batch_test(batch)
-            output,_,_,_,_ = self.model(point_cloud = point_cloud)
+            output = self.model(point_cloud=point_cloud)[0]
             self.evaluator.process(output, label)
 
         results = self.evaluator.evaluate()
@@ -464,7 +464,7 @@ class LayerNormOnlyTrainer(TrainerXU):
                 labels = labels.to(self.device)
                 
                 # Get model predictions (logits) and image features
-                predictions, _, _, _, _ = self.model(point_cloud)
+                predictions = self.model(point_cloud)[0]
                 image_features = self.model.get_image_features(point_cloud)
                 
                 # Store data per class
