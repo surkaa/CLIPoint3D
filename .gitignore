@@ -23,3 +23,10 @@ GraspNetPointClouds/scenes
 
 # Local dependency checkout backup
 Dassl.pytorch.bak/
+
+# Upstream Dassl development files not used by CLIPoint3D
+Dassl.pytorch/.flake8
+Dassl.pytorch/.gitignore
+Dassl.pytorch/.isort.cfg
+Dassl.pytorch/.style.yapf
+Dassl.pytorch/configs/

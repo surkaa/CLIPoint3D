@@ -27,7 +27,7 @@ click==8.5.0+computecanada
 cloudpickle==3.1.2+computecanada
 ConfigArgParse==1.7.7
 dash==4.4.1
--e git+https://github.com/KaiyangZhou/Dassl.pytorch@c61a1b570ac6333bd50fb5ae06aea59002fb20bb#egg=dassl
+-e ./Dassl.pytorch
 datasets==3.1.0+computecanada
 debugpy==1.8.5+computecanada
 defusedxml==0.7.1+computecanada
