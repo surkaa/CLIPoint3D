@@ -20,6 +20,12 @@ def load_dir(data_dir, name='train_files.txt'):
     return [os.path.join(data_dir, line.rstrip().split('/')[-1]) for line in lines]
 
 
+def list_class_names(root_dir):
+    """Return sorted class directory names, ignoring metadata files."""
+    root_dir = Path(root_dir)
+    return sorted(path.name for path in root_dir.iterdir() if path.is_dir())
+
+
 class PointDA(Dataset):
     def __init__(self, root_dir, split='train', transform=None, seed=42):
         """
@@ -33,7 +39,7 @@ class PointDA(Dataset):
         self.split = split
         self.transform = transform
 
-        self.classes = sorted(os.listdir(root_dir))
+        self.classes = list_class_names(self.root_dir)
 
         # Create class to index mapping
         self.class_to_idx = {cls: i for i, cls in enumerate(self.classes)}
@@ -328,7 +334,7 @@ class Scannet(Dataset):
         self.split = split
         self.transform = transform
         
-        self.classes = sorted(os.listdir(os.path.join(root_dir, '..', 'modelnet')))
+        self.classes = list_class_names(self.root_dir.parent / 'modelnet')
         
         # Create class to index mapping
         self.class_to_idx = {cls: i for i, cls in enumerate(self.classes)}
@@ -442,5 +448,4 @@ class Scannet(Dataset):
         label = torch.tensor(label)
         
         return point_cloud, label
-
 
